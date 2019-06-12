@@ -1,0 +1,168 @@
+create table museu (
+	nome_museu varchar(100) primary key,
+	ano_criacao int,
+	endereco varchar(250),
+	estado varchar(100),
+	esfera varchar(100),
+	telefone varchar(100),
+	site varchar(100),
+	email varchar(100),
+	cobranca_ingresso boolean,
+	horarios varchar(100)
+);
+
+create table tipologiadoacervo (
+	nome_tipologia varchar(100) primary key,
+	descricao varchar(200)
+	
+);
+
+create table tipologia_museu (
+	nome_tipologia varchar(100),
+	nome_museu varchar(100),
+	foreign key (nome_tipologia) references tipologiadoacervo (nome_tipologia) on delete cascade on update cascade,
+	foreign key (nome_museu) references museu (nome_museu)on delete cascade on update cascade,
+	primary key (nome_tipologia, nome_museu)
+);
+
+create table acessibilidade (
+	nome_acessibilidade varchar(100) primary key,
+	descricao varchar(200)
+);
+
+create table acessibilidade_museu (
+	nome_acessibilidade varchar(100),
+	nome_museu varchar(100),
+		foreign key (nome_acessibilidade) references acessibilidade (nome_acessibilidade)on delete cascade on update cascade,
+		foreign key (nome_museu) references museu (nome_museu)on delete cascade on update cascade,
+		primary key (nome_acessibilidade, nome_museu)
+);
+
+create table planodeseguranca (
+	nome_plano varchar(100) primary key,
+	descricao varchar(200) 
+);
+
+create table seguranca_museu (
+	nome_plano varchar(100) references planodeseguranca(nome_plano),
+	nome_museu varchar(100) references museu(nome_museu),
+		foreign key (nome_plano) references planodeseguranca (nome_plano)on delete cascade on update cascade,
+		foreign key (nome_museu) references museu (nome_museu)on delete cascade on update cascade,
+		primary key (nome_plano, nome_museu)
+);
+
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Vagas de estacionamento para deficientes',
+	'Lei federal estabelece que 5% das vagas em estacionamentos regulamentados e de uso público sejam destinados a essa parcela da população.'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Rampa de acesso',
+	'Uma rampa de acessibilidade tem a função de democratizar o uso dos espaços, permitindo o acesso de todos, sem distinção.'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Elevadores com cabine e portas acessiveis',
+	'O acesso de pessoas com deficiência a elevadores deve ser garantido, ou seja, é essencial que o edifício'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Sanitários adaptados ',
+	'Banheiros adaptados atendem a quem utiliza cadeira de rodas, aparelhos ortopédicos, próteses e também a quem precisa de apoio, como idosos, crianças, gestantes e obesos.'
+);
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Sinalização em braille',
+	' Placas de sinalização em Braille em ambientes de circulação é que as pessoas com deficiência visual adquirem maior confiança naquele local.'
+);
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Portas largas',
+	'É de suma importância que o vão interno das portas tenha 80 cm ou mais e que a altura das maçanetas também esteja dentro do padrão requerido!'
+);
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Corrimãos',
+	'Todos que precisam se apoiar ao locomover-se ou mesmo descansar após esforço intenso, e essa é a função dos indispensáveis corrimãos.'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Placas de sinalição',
+	'É uma forma de fazer com que qualquer pessoa trace sua rota desejada com facilidade e identifique que alcançou seu destino.'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Espaço suficiente para locomoção',
+	'A lei determina larguras mínimas para que um cadeirante possa circular sem grandes dificuldades, sozinho ou com certo número de pessoas ao seu lado.'
+);
+
+insert into acessibilidade (nome_acessibilidade, descricao) values (
+	'Piso tátil',
+	'A aplicação do piso para deficiente, o  contra piso deve estar limpo, firme, sem rachaduras ou peças soltas e irregulares.'
+);
+
+
+insert into planodeseguranca (nome_plano, descricao) values (
+	'Plano de Prevenção e Proteção contra Incêndios',
+	'O Plano de Prevenção e Proteção contra Incêndios (PPCI) em como objetivo proteger a integridade física das pessoas em caso de acidentes gerados pelo fogo.'
+);
+
+insert into planodeseguranca (nome_plano, descricao) values (
+	'Plano de segurança contra roubo e furto',
+	'Ao criar estratégias de prevenção de roubos você vai evitar perda com os itens roubados, gastos com a apreensão de criminosos e as tentativas de resgatar o patrimônio perdido.'
+);
+insert into planodeseguranca (nome_plano, descricao) values (
+	'Plano de emergência',
+	'É um procedimento realizado pelas pessoas que ocupam uma edificação que apresente algum risco a vida ou que esteja em eminência de sofrer um acidente.'
+);
+insert into planodeseguranca (nome_plano, descricao) values (
+	'Plano de gerenciamento de resíduos da construção civil',
+	'A quantificação dos resíduos a serem gerados na construção do Projeto de reedificação serão determinados com base nos projetos Básicos da obra'
+);
+insert into planodeseguranca (nome_plano, descricao) values (
+	'Plano de segurança contra pânico',
+	'Reúne um conjunto de medidas de segurança contra pânico para toda edificação de uso coletivo e que, por sua vez, devem ser apresentadas ao Corpo de Bombeiros local'
+);
+
+
+
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Antropologia e Etnografia',
+	'Voltadas para o estudo antropológico e social das diferentes culturas. '
+);
+
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Arquiologia',
+	'Coleções de valor histórico e artístico, procedentes de escavaçõese  achados arqueológicos.'
+);
+
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Artes Visuais',
+	'Constituído exclusivamente de obras de arte, como Esculturas, pinturas e instalações'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Ciências Naturais',
+	'Onde o propósito é ensino da ciência e de suas formas de raciocínio. '
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'História',
+	'Museus em que prevalece a relevância histórica do seu acervo'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Imagem e Som',
+	'Acervo sobre arte contemporânea, cinema, música e espaço apra novos artistas.'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Arquivistico',
+	'Composto por documentos produzidos e acumulados por uma instituição no exercício de suas funções e atividades.'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Biblioteconomico',
+	'Com documentos sobre publicações impressas, tais como livros, periódicos, monografias, teses, etc.'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Documental',
+	'Documentos manuscritos, impressos ou eletrônicos reunidos intencionalmente a partir de uma temática'
+);
+insert into tipologiadoacervo (nome_tipologia, descricao) values (
+	'Outros',
+	'Outros tipos de museus não listados.'
+);

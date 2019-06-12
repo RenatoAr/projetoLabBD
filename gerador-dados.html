@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gerador</title>
+</head>
+<body>
+    <button id='gerarMuseus'  onclick="clicar()">Gerar dados museus</button>
+    <br><br>
+    <p>Museu.cvs</p>
+    <textarea name="txtarea" id="txtarea" cols="100" rows="10" > </textarea>
+    <p>museuXAcessibilidade.cvs</p>
+    <textarea name="museuXAcessibilidade" id="museuXAcessibilidade" cols="100" rows="10" > </textarea>
+    <p>museuXSeguranca.cvs</p>
+    <textarea name="museuXSeguranca" id="museuXSeguranca" cols="100" rows="10" > </textarea>
+    <p>museuXTipologia.cvs</p>
+    <textarea name="museuXTipologia" id="museuXTipologia" cols="100" rows="10" > </textarea>
+
+
+    
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js'></script>
+
+    
+    <script>
+        faker.locale = "pt_BR";
+
+        function gerarNome() {
+            var aleatorio = Math.floor((Math.random() * 9) + 0);
+            var aleatorio2 = Math.floor((Math.random() * 11) + 0);
+            var prefixos = [ ' Museum', ' Gallery', '', ' National Gallery', ' Art Gallery', ' Academy of Arts', ' Museum of Fine Arts', ' Galleries', ' Institute']
+            var linguas = [ 'de','de_AT','de_CH','en_AU','es','es_MX','fa','fr','it','pl','uk'];
+            faker.locale = linguas[aleatorio2];
+            return faker.name.jobType() +  ' ' + faker.name.firstName() +  ' ' + faker.name.lastName() + ' ' + faker.name.lastName() + ' ' + faker.name.lastName() + ' ' + faker.name.suffix() + ' '+prefixos[aleatorio];
+        }
+        function gerarAno() {
+            return  Math.floor( Math.random() * (2018 - 1500) + 1500);
+        }
+        function gerarEndereco() {
+            var aleatorio = Math.floor((Math.random() * 2) + 0);
+            var prefixos = [ 'Av.', 'Rua']
+            faker.locale = "pt_BR";
+            return  prefixos[aleatorio] + ' ' + faker.name.findName();
+        }
+        function gerarEstado() {
+            var aleatorio = Math.floor((Math.random() * 27) + 0);
+            var estados = ['AC','AL','AP','AM','BA','CE','DF','ES','GO','MA','MT','MS','MG','PA','PB','PR','PE','PI','RJ','RN','RS','RO','RR','SC','SP','SE','TO'];
+            return  estados[aleatorio];
+        }
+        function gerarEsfera() {
+            var aleatorio = Math.floor((Math.random() * 5) + 0);
+            var prefixos = [ 'Pública Estadual', 'Privada Religiosa', 'Mista - Religiosa e Municipal', 'Pública Municipal', 'Mista - Associação e prefeitura']
+            return  prefixos[aleatorio];
+        }
+        function gerarTelefone() {
+            return  faker.phone.phoneNumberFormat();
+        }
+        function gerarSite() {
+            return  faker.internet.domainName();
+        }
+        function gerarEmail() {
+            return  faker.internet.email();
+        }
+        function gerarBool() {
+            var aleatorio = Math.floor((Math.random() * 2) + 0);
+            return aleatorio;
+        }
+        function gerarHorariosFuncionamento() {
+            var aleatorio = Math.floor((Math.random() * 5) + 0);
+            var aleatorio2 = Math.floor( Math.random() * (23 - 6) + 6);
+            var aleatorio3 = Math.floor( Math.random() * (23 - 6) + 6);
+            var prefixos = [ 'Segunda a Sexta das ', 'Terça a Domingo das ', 'Segunda a Domingo das ', 'Sábado e Domingo das ', 'Domingo das ']
+            return prefixos[aleatorio] + aleatorio2 + ' as ' + aleatorio3 + ' horas';
+        }
+
+
+        function museuXAcessibilidade(nome) {
+            var num = Math.floor((Math.random() * 11) + 0);
+            //var ale = Math.floor((Math.random() * 13) + 0);
+            var prefixos = [ 
+                'Vagas de estacionamento para deficientes', 
+                'Rampa de acesso', 
+                'Elevadores com cabine e portas acessiveis', 
+                'Sanitários adaptados ', 
+                'Sinalização em braille', 
+                'Portas largas', 
+                'Corrimãos', 
+                'Espaço suficiente para locomoção', 
+                'Piso tátil', 
+                'Placas de sinalização'
+                ];
+            var resultado = '';
+            if (num == 10) {
+                //console.log(num);
+                return false;
+            }
+            for (let i = 0; i < num; i++) {
+               
+                resultado += prefixos[i]+','+nome+'\n';
+                
+            }
+            // console.log(resultado);
+            return  resultado;
+        }
+        function museuXSeguranca(nome) {
+            var num = Math.floor((Math.random() * 6) + 0);
+            //var ale = Math.floor((Math.random() * 13) + 0);
+            var prefixos = [ 
+                'Plano de Prevenção e Proteção contra Incêndios', 
+                'Plano de segurança contra roubo e furto', 
+                'Plano de emergência', 
+                'Plano de segurança contra pânico',
+                'Plano de gerenciamento de resíduos da construção civil'
+                ];
+            var resultado = '';
+            if (num === 5) {
+                return false;
+            }
+            for (let i = 0; i < num; i++) {
+               
+                resultado += prefixos[i]+','+nome+'\n';
+                
+            }
+            // console.log(resultado);
+            return  resultado;
+        }
+        function museuXTipologia(nome) {
+            var num = Math.floor((Math.random() * 11) + 0);
+            //var ale = Math.floor((Math.random() * 13) + 0);
+            var prefixos = [ 
+                'Antropologia e Etnografia', 
+                'Arquiologia', 
+                'Artes Visuais', 
+                'História',
+                'Imagem e Som',
+                'Arquivistico',
+                'Biblioteconomico',
+                'Documental',
+                'Outros',
+                'Ciências Naturais'
+                ];
+            var resultado = '';
+            if (num === 10) {
+                return false;
+            }
+            for (let i = 0; i < num; i++) {
+               
+                resultado += prefixos[i]+','+nome+'\n';
+                
+            }
+            // console.log(resultado);
+            return  resultado;
+        }
+
+        function clicar()  {
+            console.log('Gerando dados...');
+            // limpar dados
+            // $('#txtarea').text('');
+            // limpar resultado
+            var result = '';
+            //gerar dados dos museus
+            var nomes = [];
+            var ano_criacao = [];
+            var end = [];
+            var estados = [];
+            var esferas = [];
+            var tel = [];
+            var site = [];
+            var email = [];
+            var cobranca_ingresso = [];
+            var horario_funcionamento = [];
+
+            var museu_acessibilidade = [];
+            var museu_seguranca = [];
+            var museu_tipologia = [];
+
+            //gerar mil nomes
+            for (let i = 0; i < 100000 ; i++) {
+                nomes.push(gerarNome()); 
+            }
+            //gerar mil datas
+            for (let i = 0; i < 100000 ; i++) {
+                ano_criacao.push(gerarAno()); 
+            }
+            //gerar mil Endereços
+            for (let i = 0; i < 100000 ; i++) {
+                end.push(gerarEndereco()); 
+            }
+            //gerar mil Estados
+            for (let i = 0; i < 100000 ; i++) {
+                estados.push(gerarEstado()); 
+            }
+            //gerar mil Esferas
+            for (let i = 0; i < 100000 ; i++) {
+                esferas.push(gerarEsfera()); 
+            }
+            //gerar mil Telefones
+            for (let i = 0; i < 100000 ; i++) {
+                tel.push(gerarTelefone()); 
+            }
+            //gerar mil sites
+            for (let i = 0; i < 100000 ; i++) {
+                site.push(gerarSite()); 
+            }
+            //gerar mil email
+            for (let i = 0; i < 100000 ; i++) {
+                email.push(gerarEmail()); 
+            }
+            //gerar mil boleanos
+            for (let i = 0; i < 100000 ; i++) {
+                cobranca_ingresso.push(gerarBool()); 
+            }
+            //gerar mil boleanos
+            for (let i = 0; i < 100000 ; i++) {
+                horario_funcionamento.push(gerarHorariosFuncionamento()); 
+            }
+            //gerar mil museus_acessibilidade
+            for (let i = 0; i < 100000 ; i++) {
+                var tt = museuXAcessibilidade(nomes[i]);
+                if (tt) {
+                    museu_acessibilidade.push(tt); 
+                }
+            }
+
+            //gerar mil museus_seguranca
+            for (let i = 0; i < 100000 ; i++) {
+                var tt = museuXSeguranca(nomes[i]);
+                if (tt) {
+                    museu_seguranca.push(tt); 
+                }
+            }
+            //gerar mil museus_tipologia
+            for (let i = 0; i < 100000 ; i++) {
+                var tt = museuXTipologia(nomes[i]);
+                if (tt) {
+                    museu_tipologia.push(tt); 
+                }
+            }
+
+
+
+            // resultado
+            
+            var res = '';
+            var resMXA = '';
+            var resMXS = '';
+            
+            for (let i = 0; i < 100000 ; i++) {
+                res += nomes[i]+','+ano_criacao[i] +','+end[i]+','+estados[i]+','+esferas[i]+','+tel[i]+','+site[i]+','+email[i]+','+cobranca_ingresso[i]+','+horario_funcionamento[i]+'\n';
+            }
+            
+            
+            console.log(museu_acessibilidade); 
+
+           document.getElementById("txtarea").value = res;
+           document.getElementById("museuXAcessibilidade").value = museu_acessibilidade;
+           document.getElementById("museuXSeguranca").value = museu_seguranca;
+           document.getElementById("museuXTipologia").value = museu_tipologia;
+        };
+    
+    </script>
+</body>
+</html>
